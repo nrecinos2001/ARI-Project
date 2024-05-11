@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 
 @Controller('json-parser')
-export class JsonParserController {}
+export class JsonParserController {
+  @Post()
+  async parseText() {
+    
+  }
+}
