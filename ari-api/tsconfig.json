@@ -11,7 +11,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@JsonParser/*": ["src/json-parser/*"]
+      "@JsonParser/*": ["src/json-parser/*"],
+      "@Config/*": ["src/config/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
