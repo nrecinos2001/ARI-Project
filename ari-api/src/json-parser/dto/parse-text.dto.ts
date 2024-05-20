@@ -1,20 +1,17 @@
-import {
-  IsArray,
-  IsEnum,
-  IsNotEmpty,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 import { Separator } from '../enums';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ParseTextDto {
-  @IsString()
+  @ApiProperty()
+  @Type(() => String)
+  @IsString({ each: true })
   @IsArray()
-  @IsNotEmpty()
-  @ValidateNested({ each: true })
   text: string[];
 
+  @ApiProperty()
   @IsEnum(Separator)
   @IsNotEmpty()
   separator: Separator;
