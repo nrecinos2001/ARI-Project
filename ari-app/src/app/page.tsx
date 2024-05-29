@@ -4,6 +4,8 @@ import { HomePage } from "@/app/pages";
 
 export default function Home() {
   return (
-  <HomePage />
+    <div className={styles.main}>
+      <HomePage />
+    </div>
   );
 }
