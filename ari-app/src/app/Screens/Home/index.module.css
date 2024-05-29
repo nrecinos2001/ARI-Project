@@ -1,0 +1,9 @@
+.textAreaContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textAreaContainer div {
+  width: 50%;
+}
