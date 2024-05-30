@@ -1,11 +1,19 @@
+import React, { ChangeEvent } from 'react';
 import styles from './input.module.css';
 
 interface IInputTextAreaProps {
-  text: string;
+  value: string;
+  placeholder?: string;
+  onChange: ( event: ChangeEvent<HTMLTextAreaElement> ) => void;
 }
 
-export const InputTextArea = ({text}: IInputTextAreaProps) => {
+export const InputTextArea: React.FC<IInputTextAreaProps> = ( { value, placeholder = 'Ingrese su texto', onChange } ) => {
   return (
-    <textarea className={styles.input} placeholder='Ingrese su texto' value={text}/>
-  )
-}
+    <textarea
+      className={`input ${styles.input}`}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+};

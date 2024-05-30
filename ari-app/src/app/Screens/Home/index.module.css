@@ -1,9 +1,15 @@
-.textAreaContainer {
+.container {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-.textAreaContainer div {
-  width: 50%;
+.textAreaContainer {
+  width: 200%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.inputFile {
+  margin-bottom: 20px;
 }
