@@ -15,4 +15,9 @@ export class ParseTextDto {
   @IsEnum(Separator)
   @IsNotEmpty()
   separator: Separator;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  key: string;
 }

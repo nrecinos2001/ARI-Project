@@ -33,7 +33,7 @@ export class JsonParserService {
   }
 
   parse(parseTextDto: ParseTextDto) {
-    const { separator, text } = parseTextDto;
+    const { separator, text, key } = parseTextDto;
     const splitter = separator === Separator.COMMA ? ',' : ';';
 
     const textObject = text.reduce((acc, current) => {
@@ -67,7 +67,7 @@ export class JsonParserService {
           documento: splittedText[0],
           nombres: splittedText[1],
           apellidos: splittedText[2],
-          tarjeta: encrypt(splittedText[3]),
+          tarjeta: encrypt(splittedText[3], key),
           tipo: splittedText[4],
           telefono: splittedText[5],
           coordenates: coordenatesBody,
