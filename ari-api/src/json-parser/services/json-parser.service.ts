@@ -74,8 +74,9 @@ export class JsonParserService {
         };
         acc.push(itemBody);
         return acc;
-      } catch {
-        throw new BadRequestException('Review your data and try again');
+      } catch (error) {
+        const errorMessage = error?.message || 'Review your data and try again';
+        throw new BadRequestException(errorMessage);
       }
     }, []);
     return textObject;
