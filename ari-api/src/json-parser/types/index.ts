@@ -1,6 +1,6 @@
 import { GeometryType } from '../enums';
 
-export interface ICoordenatesBody {
+export interface ICoordinatesBody {
   type: string;
   geometry: {
     type: GeometryType;

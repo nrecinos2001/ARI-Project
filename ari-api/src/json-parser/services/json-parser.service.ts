@@ -4,11 +4,11 @@ import { encrypt } from 'src/utils';
 
 import { ParseTextDto } from '../dto';
 import { GeometryType, Separator } from '../enums';
-import { ICoordenatesBody } from '../types';
+import { ICoordinatesBody } from '../types';
 
 @Injectable()
 export class JsonParserService {
-  parsePolygon(text: string[]): ICoordenatesBody {
+  parsePolygon(text: string[]): ICoordinatesBody {
     const data: number[] = text.reduce((acc, current) => {
       const splittedText = current.split(',');
       acc.push([parseFloat(splittedText[0]), parseFloat(splittedText[1])]);
@@ -20,7 +20,7 @@ export class JsonParserService {
     };
   }
 
-  parseCoordenate(text: string[]): ICoordenatesBody {
+  parseCoordenate(text: string[]): ICoordinatesBody {
     const splittedText = text[0].split(',');
     const coordinates: number[] = [
       parseFloat(splittedText[0]),
@@ -44,23 +44,23 @@ export class JsonParserService {
             'The separator was not the correct one',
           );
         }
-        const textForCoordenates = current.replaceAll(')', '');
-        const coordenatesInitIndex = textForCoordenates.indexOf('(');
-        const coordenatesPositions = textForCoordenates.slice(
-          coordenatesInitIndex + 1,
+        const textForCoordinates = current.replaceAll(')', '');
+        const coordinatesInitIndex = textForCoordinates.indexOf('(');
+        const coordinatesPositions = textForCoordinates.slice(
+          coordinatesInitIndex + 1,
         );
-        const coordenatesToUpdate = coordenatesPositions
+        const coordinatesToUpdate = coordinatesPositions
           .replaceAll('(', '\n')
           .split('\n');
-        const isPolygon = coordenatesToUpdate.length > 1;
+        const isPolygon = coordinatesToUpdate.length > 1;
 
-        const coordenates = isPolygon
-          ? coordenatesToUpdate.filter((item) => item)
-          : coordenatesToUpdate;
+        const coordinates = isPolygon
+          ? coordinatesToUpdate.filter((item) => item)
+          : coordinatesToUpdate;
 
-        const coordenatesBody = isPolygon
-          ? this.parsePolygon(coordenates)
-          : this.parseCoordenate(coordenates);
+        const coordinatesBody = isPolygon
+          ? this.parsePolygon(coordinates)
+          : this.parseCoordenate(coordinates);
         const splittedText = current.split(splitter);
 
         const itemBody = {
@@ -70,7 +70,7 @@ export class JsonParserService {
           tarjeta: encrypt(splittedText[3], key),
           tipo: splittedText[4],
           telefono: splittedText[5],
-          coordenates: coordenatesBody,
+          coordinates: coordinatesBody,
         };
         acc.push(itemBody);
         return acc;
