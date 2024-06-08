@@ -17,10 +17,17 @@ export const Home = () => {
       const reader = new FileReader();
       reader.onload = ( e ) => {
         const text = e.target?.result as string;
-        setInput( text );
+        const csvLines = text.split( '\n' ).filter( line => line.trim() !== '' );
+        const formattedText = csvLines.map( line => `"${line.trim().replace( /"/g, '' )}"` ).join( ', ' );
+        setInput( formattedText );
       };
       reader.readAsText( file );
     }
+  };
+
+  const handleSubmit = () => {
+    // Aquí puedes enviar el texto formateado a tu API o hacer cualquier otra acción necesaria
+    console.log( 'Texto a enviar:', input );
   };
 
   return (
@@ -33,7 +40,10 @@ export const Home = () => {
         <div className={styles.textAreaContainer}>
           <InputTextArea value={input} onChange={handleChange} />
         </div>
+        <div>
+          <button onClick={handleSubmit}>Enviar</button>
+        </div>
       </div>
     </>
   );
-}
+};
