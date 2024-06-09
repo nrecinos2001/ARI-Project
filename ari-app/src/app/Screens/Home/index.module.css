@@ -2,14 +2,36 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  text-align: center;
+}
+
+.headerAndUpload {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.uploadFileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .textAreaContainer {
-  width: 200%;
-  max-width: 600px;
+  width: 100%;
+  height: 200px;
   margin-top: 20px;
 }
 
 .inputFile {
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .headerAndUpload {
+    flex-direction: column;
+    align-items: center;
+  }
 }
