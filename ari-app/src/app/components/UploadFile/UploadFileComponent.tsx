@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "./uploadFile.css";
-import "./uploadFile.js";
 
 interface UploadFileComponentProps {
     onFileSelect: (file: File) => void;

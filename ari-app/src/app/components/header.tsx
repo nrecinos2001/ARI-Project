@@ -7,7 +7,21 @@ export const Header = () => {
         <span className={styles.text}>&nbsp;ARI-Proyecto&nbsp;</span>
         <span className={styles.hoverText}>&nbsp;ARI-Proyecto&nbsp;</span>
       </div>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, corporis rerum ex voluptas sint accusamus similique amet maxime nobis voluptate obcaecati ad architecto explicabo fugiat praesentium eum magnam, neque provident, omnis quam suscipit magni tempora. Asperiores unde, quae aspernatur eveniet aliquid quia totam autem error consectetur id cum neque nostrum suscipit. Molestias labore eos inventore unde dolores ipsum asperiores accusantium optio, temporibus deleniti maxime sit delectus, qui perferendis voluptate provident nulla eveniet ullam excepturi illum? Cumque doloremque in distinctio a dicta eligendi blanditiis, sed odio atque dolor tempore numquam recusandae quaerat voluptate unde. Architecto explicabo facere dolores, nulla ipsum culpa ipsa totam ipsam dignissimos error, doloremque eligendi modi non deserunt ea nihil atque quaerat! Hic odit amet reiciendis eos deleniti modi assumenda iste quod porro obcaecati tempora ea maiores sint beatae, maxime vero eum explicabo est illo animi mollitia minima reprehenderit aliquid. Recusandae sunt provident aliquid sapiente ex, impedit veniam quae nulla molestias, laudantium iusto quos voluptatum rem voluptatem, in consequatur nesciunt quasi quam minus aperiam. Eos est officia necessitatibus.</p>
+      <p>
+        Una de las principales funciones de un profesional de la informática, enfocado a la gestión de los
+        activos de la seguridad de la información, es la de garantizar métodos seguros de intercambio de
+        datos, tanto a nivel de usuarios como entre API’s. Es así que, con el objetivo que se exploren y
+        utilicen protocolos estándares de intercambio y comunicación entre aplicaciones en la web, se
+        solicita la siguiente pieza de software.
+      </p>
+      <p>El software posee las siguientes funcionalidades:</p>
+      <ul>
+        <li>Genera y permite guardar un JSON a partir de un archivo de texto, donde los datos en el archivo de texto están separados por delimitadores.</li>
+        <li>Cifra el dato del número de tarjeta de crédito en la generación de JSON.</li>
+        <li>Maneja los datos geográficos siguiendo estándar OGC.</li>
+        <li>Genera y permite guardar un archivo de texto a partir de un archivo JSON.</li>
+        <li>Las conversiones y cifrado se realizan a través de una API que atiende un servicio web.</li>
+      </ul>
     </div>
-  )
+  );
 }
