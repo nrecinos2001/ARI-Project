@@ -16,6 +16,10 @@ export const Home = () => {
     setInput(event.target.value);
   };
 
+  const handleReset = () => {
+    setInput('');
+  };
+
   const handleFileSelect = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -67,11 +71,11 @@ export const Home = () => {
         <UploadFileComponent onFileSelect={handleFileSelect} />
       </div>
       <div className={styles.container}>
-
         <div className={styles.textAreaContainer}>
           <InputTextArea value={input} onChange={handleChange} />
         </div>
-        <div>
+        <div className={styles.buttonContainer}>
+          <button onClick={handleReset} className={styles.resetBtn}>Limpiar</button>
           <button onClick={handleSubmit} className={styles.sendBtn}>Enviar</button>
         </div>
         {jsonResult && (

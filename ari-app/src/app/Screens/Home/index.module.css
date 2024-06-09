@@ -28,7 +28,7 @@
   margin-bottom: 20px;
 }
 
-.sendBtn {
+.sendBtn,.resetBtn{
   min-height: 2rem;
   font-size: 1rem;
   background: var(--primary);
@@ -41,10 +41,19 @@
   transition: background 0.3s ease;
 }
 
+.resetBtn{
+  background: var(--secondary);
+  color: var(--primary-text);
+}
+
 .sendBtn:hover {
   background: var(--primary-hover);
   color: var(--border);
   font-weight: 500;
+}
+
+.resetBtn:hover {
+  background: var(--secondary-hover);
 }
 
 .resultContainer {
