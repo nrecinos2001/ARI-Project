@@ -8,6 +8,12 @@ import sendString from "@/api/jsonParser";
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 
+// Configurar toastr
+toastr.options = {
+  progressBar: true,
+  closeButton: true,
+};
+
 export const Home = () => {
   const [input, setInput] = useState<string>('');
   const [jsonResult, setJsonResult] = useState<string | null>(null);
@@ -32,10 +38,17 @@ export const Home = () => {
   };
 
   const handleSubmit = async () => {
+    if (!input.trim()) {
+      toastr.warning("El texto no puede estar vacío");
+      return;
+    }
+
     try {
       const result = await sendString(input);
       setJsonResult(JSON.stringify(result, null, 2));
+      toastr.success("JSON generado con éxito");
     } catch (error) {
+      toastr.error('No se detecta el formato indicado en el texto');
       console.error('Error:', error);
     }
   };
