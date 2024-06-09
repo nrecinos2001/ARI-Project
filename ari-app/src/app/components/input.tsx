@@ -4,10 +4,10 @@ import styles from './input.module.css';
 interface IInputTextAreaProps {
   value: string;
   placeholder?: string;
-  onChange: ( event: ChangeEvent<HTMLTextAreaElement> ) => void;
+  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export const InputTextArea: React.FC<IInputTextAreaProps> = ( { value, placeholder = 'Ingrese su texto', onChange } ) => {
+export const InputTextArea: React.FC<IInputTextAreaProps> = ({ value, placeholder = 'Ingrese el texto o adjunte su archivo', onChange }) => {
   return (
     <textarea
       className={`input ${styles.input}`}
