@@ -3,7 +3,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ParseTextDto } from '../dto';
 import { GeometryType, Separator } from '../enums';
 import { ICoordinatesBody } from '../types';
-import { decryptData } from 'src/utils';
+import { decryptData, encryptData } from 'src/utils';
 
 @Injectable()
 export class JsonParserService {
@@ -31,7 +31,7 @@ export class JsonParserService {
     };
   }
 
-  parse(parseTextDto: ParseTextDto) {
+  parse(parseTextDto: ParseTextDto): string[] {
     const { separator, text: encryptedText, key } = parseTextDto;
     const [encryptedData, iv] = encryptedText;
     const rawText = decryptData(encryptedData, iv, key);
@@ -81,6 +81,8 @@ export class JsonParserService {
         throw new BadRequestException(errorMessage);
       }
     }, []);
-    return textObject;
+    const stringifiedObject = JSON.stringify(textObject);
+    const encryptedResponse = encryptData(stringifiedObject, key);
+    return encryptedResponse;
   }
 }
