@@ -13,11 +13,14 @@ export function encryptData(dataToEncript: string, key: string): string[] {
   return [encrypted, iv.toString('hex')];
 }
 
-export function decryptData(encryptedData: string, key: string): string {
-  const [data, ivHex] = encryptedData;
+export function decryptData(
+  encryptedData: string,
+  ivHex: string,
+  key: string,
+): string {
   const iv = Buffer.from(ivHex, 'hex');
   const hash = createHash(key);
   const decipher = crypto.createDecipheriv('aes-256-ctr', hash, iv);
-  const decrypted = decipher.update(data, 'hex', 'utf-8');
+  const decrypted = decipher.update(encryptedData, 'hex', 'utf-8');
   return decrypted;
 }
