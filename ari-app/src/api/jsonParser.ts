@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { baseUrl } from '@/utils/baseUrl';
+import { baseKey } from '@/utils/key';
 
 export default async function sendString( data: string, separator: string ) {
     const requestBody = {
         text: [data],
         separator: separator,
-        key: "key"
+        key: baseKey
     };
 
     try {
