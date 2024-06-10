@@ -1,10 +1,23 @@
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
-export function encrypt(text: string, key: string): string {
-  const hashedText = crypto
-    .createHmac('sha256', key)
-    .update(text)
-    .digest('hex');
+function createHash(key: string): Buffer {
+  return crypto.createHash('sha256').update(key).digest();
+}
 
-  return hashedText;
+export function encryptData(dataToEncript: string, key: string): string[] {
+  const iv = crypto.randomBytes(16);
+  const hash = createHash(key);
+  const stringifiedArr = JSON.stringify(dataToEncript);
+  const cipher = crypto.createCipheriv('aes-256-ctr', hash, iv);
+  const encrypted = cipher.update(stringifiedArr, 'utf-8', 'hex');
+  return [encrypted, iv.toString('hex')];
+}
+
+export function decryptData(encryptedData: string, key: string): string {
+  const [data, ivHex] = encryptedData;
+  const iv = Buffer.from(ivHex, 'hex');
+  const hash = createHash(key);
+  const decipher = crypto.createDecipheriv('aes-256-ctr', hash, iv);
+  const decrypted = decipher.update(data, 'hex', 'utf-8');
+  return decrypted;
 }
