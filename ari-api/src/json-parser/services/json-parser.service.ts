@@ -1,10 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { encrypt } from 'src/utils';
-
 import { ParseTextDto } from '../dto';
 import { GeometryType, Separator } from '../enums';
 import { ICoordinatesBody } from '../types';
+import { decryptData } from 'src/utils';
 
 @Injectable()
 export class JsonParserService {
@@ -33,7 +32,10 @@ export class JsonParserService {
   }
 
   parse(parseTextDto: ParseTextDto) {
-    const { separator, text, key } = parseTextDto;
+    const { separator, text: encryptedText, key } = parseTextDto;
+    const [encryptedData, iv] = encryptedText;
+    const rawText = decryptData(encryptedData, iv, key);
+    const text = JSON.parse(rawText);
     const splitter = separator === Separator.COMMA ? ',' : ';';
 
     const textObject = text.reduce((acc, current) => {
@@ -67,7 +69,7 @@ export class JsonParserService {
           documento: splittedText[0],
           nombres: splittedText[1],
           apellidos: splittedText[2],
-          tarjeta: encrypt(splittedText[3], key),
+          tarjeta: splittedText[3],
           tipo: splittedText[4],
           telefono: splittedText[5],
           coordinates: coordinatesBody,
