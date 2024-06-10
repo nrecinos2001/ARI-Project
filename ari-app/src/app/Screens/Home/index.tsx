@@ -15,65 +15,71 @@ toastr.options = {
 };
 
 export const Home = () => {
-  const [input, setInput] = useState<string>('');
-  const [jsonResult, setJsonResult] = useState<string | null>(null);
+  const [input, setInput] = useState<string>( '' );
+  const [jsonResult, setJsonResult] = useState<string | null>( null );
+  const [separator, setSeparator] = useState<string>( 'comma' );
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(event.target.value);
+  const handleChange = ( event: ChangeEvent<HTMLTextAreaElement> ) => {
+    setInput( event.target.value );
   };
 
   const handleReset = () => {
-    setInput('');
+    setInput( '' );
   };
 
-  const handleFileSelect = (file: File) => {
+  const handleFileSelect = ( file: File ) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = ( e ) => {
       const text = e.target?.result as string;
-      const csvLines = text.split('\n').filter(line => line.trim() !== '');
-      const formattedText = csvLines.map(line => `"${line.trim().replace(/"/g, '')}"`).join(', ');
-      setInput(formattedText);
+      const csvLines = text.split( '\n' ).filter( line => line.trim() !== '' );
+      const separatorChar = separator === 'comma' ? ', ' : '; ';
+      const formattedText = csvLines.map( line => `"${line.trim().replace( /"/g, '' )}"` ).join( separatorChar );
+      setInput( formattedText );
     };
-    reader.readAsText(file);
+    reader.readAsText( file );
+  };
+
+  const handleSeparatorChange = ( event: ChangeEvent<HTMLSelectElement> ) => {
+    setSeparator( event.target.value );
   };
 
   const handleSubmit = async () => {
-    if (!input.trim()) {
-      toastr.warning("El texto no puede estar vacío");
+    if ( !input.trim() ) {
+      toastr.warning( "El texto no puede estar vacío" );
       return;
     }
 
     try {
-      const result = await sendString(input);
-      setJsonResult(JSON.stringify(result, null, 2));
-      toastr.success("JSON generado con éxito");
-    } catch (error) {
-      toastr.error('No se detecta el formato indicado en el texto');
-      console.error('Error:', error);
+      const result = await sendString( input, separator );
+      setJsonResult( JSON.stringify( result, null, 2 ) );
+      toastr.success( "JSON generado con éxito" );
+    } catch ( error ) {
+      toastr.error( 'No se detecta el formato indicado en el texto' );
+      console.error( 'Error:', error );
     }
   };
 
   const handleDownload = () => {
-    if (jsonResult) {
-      const blob = new Blob([jsonResult], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+    if ( jsonResult ) {
+      const blob = new Blob( [jsonResult], { type: 'application/json' } );
+      const url = URL.createObjectURL( blob );
+      const link = document.createElement( 'a' );
       link.href = url;
       link.download = 'result.json';
-      document.body.appendChild(link);
+      document.body.appendChild( link );
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      document.body.removeChild( link );
+      URL.revokeObjectURL( url );
     }
   };
 
   const handleCopy = () => {
-    if (jsonResult) {
-      navigator.clipboard.writeText(jsonResult).then(() => {
-        toastr.success("Texto copiado al portapapeles");
-      }, (err) => {
-        toastr.error('Error al copiar al portapapeles: ', err);
-      });
+    if ( jsonResult ) {
+      navigator.clipboard.writeText( jsonResult ).then( () => {
+        toastr.success( "Texto copiado al portapapeles" );
+      }, ( err ) => {
+        toastr.error( 'Error al copiar al portapapeles: ', err );
+      } );
     }
   };
 
@@ -86,6 +92,15 @@ export const Home = () => {
       <div className={styles.container}>
         <div className={styles.textAreaContainer}>
           <InputTextArea value={input} onChange={handleChange} />
+        </div>
+        <div className={styles.optionsContainer}>
+          <label htmlFor="separator">Separador:</label>
+          <div>
+            <select id="separator" value={separator} onChange={handleSeparatorChange}>
+              <option value="comma">Coma</option>
+              <option value="semicolon">Punto y coma</option>
+            </select>
+          </div>
         </div>
         <div className={styles.buttonContainer}>
           <button onClick={handleReset} className={styles.resetBtn}>Limpiar</button>
