@@ -34,8 +34,7 @@ export class JsonParserService {
   parse(parseTextDto: ParseTextDto): string[] {
     const { separator, text: encryptedText, key } = parseTextDto;
     const [encryptedData, iv] = encryptedText;
-    const rawText = decryptData(encryptedData, iv, key);
-    const text = JSON.parse(rawText);
+    const text = decryptData(encryptedData, iv, key).split('\\n');
     const splitter = separator === Separator.COMMA ? ',' : ';';
 
     const textObject = text.reduce((acc, current) => {
@@ -66,7 +65,7 @@ export class JsonParserService {
         const splittedText = current.split(splitter);
 
         const itemBody = {
-          documento: splittedText[0],
+          documento: splittedText[0].replace('\\"', '').replace('"', ''),
           nombres: splittedText[1],
           apellidos: splittedText[2],
           tarjeta: splittedText[3],
