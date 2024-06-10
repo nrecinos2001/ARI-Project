@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { baseUrl } from '@/utils/baseUrl';
 import { decryptData, encryptData } from '@/app/utils';
-
-const key = 'key';
-
-export default async function sendString(data: string) {
+import { baseKey as key } from '@/utils/key';
+export default async function sendString( data: string, separator: string ) {
     const requestBody = {
         text: [data],
-        separator: "comma",
+        separator,
         key,
     };
 
