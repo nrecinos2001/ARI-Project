@@ -6,7 +6,7 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('ARI - Project')
     .setDescription('The ARI-Project API description')
     .setVersion('1.0')
-    .addTag('AWdmon. de Riesgos Informáticos')
+    .addTag('Admon. de Riesgos Informáticos')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
