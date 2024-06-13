@@ -32,8 +32,7 @@ export const Home = () => {
     reader.onload = ( e ) => {
       const text = e.target?.result as string;
       const csvLines = text.split( '\n' ).filter( line => line.trim() !== '' );
-      const separatorChar = separator === 'comma' ? ', ' : '; ';
-      const formattedText = csvLines.map( line => `"${line.trim().replace( /"/g, '' )}"` ).join( separatorChar );
+      const formattedText = csvLines.map( line => `"${line.trim().replace( /"/g, '' )}"` ).join( '\n' );
       setInput( formattedText );
     };
     reader.readAsText( file );

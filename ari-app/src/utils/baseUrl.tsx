@@ -1,1 +1,2 @@
-export const baseUrl = 'http://localhost:3000';
+// utils/baseUrl.ts
+export const baseUrl = process.env.NEXT_PUBLIC_API_URL;
